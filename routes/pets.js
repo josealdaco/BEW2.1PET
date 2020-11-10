@@ -10,19 +10,19 @@ module.exports = (app) => {
   app.get('/pets/new', (req, res) => {
     res.render('pets-new');
   });
-// CREATE PET
-  app.post('/pets', (req, res) => {
-   var pet = new Pet(req.body);
 
-   pet.save()
-     .then((pet) => {
-       res.send({ pet: pet });
-     })
-     .catch((err) => {
-       // STATUS OF 400 FOR VALIDATIONS
-       res.status(400).send(err.errors);
-     }) ;
- });
+  // CREATE PET
+  app.post('/pets', (req, res) => {
+    var pet = new Pet(req.body);
+
+    pet.save()
+      .then((pet) => {
+        res.redirect(`/pets/${pet._id}`);
+      })
+      .catch((err) => {
+        // Handle Errors
+      }) ;
+  });
 
   // SHOW PET
   app.get('/pets/:id', (req, res) => {
